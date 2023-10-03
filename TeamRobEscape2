@@ -1,0 +1,82 @@
+if game.PlaceId == 14793777270 then
+ 
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Team Rob The Bank Escape", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+_G.obby = true
+_G.time = true
+getgenv().tpPlace = "string"
+_G.gem = true
+
+function obby()
+     while _G.obby == true do
+        local id  = 14543491988
+        for i,v in pairs(game:GetDescendants()) do
+       if v:IsA("RemoteEvent") then
+        v:FireServer(id)
+        if v:IsA("BindableEvent") then
+        v:Fire(id)
+        if v:IsA("RemoteFunction") then
+        v:InvokeServer(id)
+       end
+       end
+       end
+       end 
+     wait(5)
+    end
+end
+
+function time()
+      while _G.time == true do
+        game:GetService("ReplicatedStorage").RepStorage.UGC.TimeChanged:FireServer()
+        wait(0.000000000000000001)
+    end
+end
+
+function Teleport(teleportPlace)
+    local player = game.Players.LocalPlayer
+    player.Character.HumanoidRootPart.CFrame = teleportPlace
+end
+
+function gem()
+     while _G.gun == true do
+        Teleport(game:GetService("Workspace").GameAssets.Money.Gun.TouchPart.CFrame)
+        wait(0.1)
+    end
+end
+
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+MainTab:AddToggle({
+    Name = "Auto Obby",
+    Default = false,
+    Callback = function(Value)
+        _G.obby = Value
+        obby()
+    end
+})
+
+MainTab:AddToggle({
+    Name = "Skip Time",
+    Default = false,
+    Callback = function(Value)
+        _G.time = Value
+        time()
+    end
+})
+
+
+MainTab:AddToggle({
+    Name = "Auto Collect Guns",
+    Default = false,
+    Callback = function(Value)
+        _G.gun = Value
+        gem()
+    end
+})
+
+end
